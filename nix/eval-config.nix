@@ -10,4 +10,5 @@
 
 ({ pkgs ? import <nixpkgs> {} }: {
   inherit pkgs;
-}) config
+}) (if config ? image && builtins.pathExists ./${config.image}.nix then
+      import ./${config.image}.nix else {}) // config
